@@ -1,11 +1,9 @@
 import { packages } from "@/data/packages";
-import { SITE_URL, SITE_NAME } from "@/constants/site";
 import Navbar from "@/components/layout/Navbar";
 import SocialShare from "@/components/shared/SocialShare";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 
 interface PageProps {
@@ -16,49 +14,6 @@ export async function generateStaticParams() {
   return packages.map((pkg) => ({
     id: pkg.id.toString(),
   }));
-}
-
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const { id } = await params;
-  const pkg = packages.find((p) => p.id === parseInt(id));
-
-  if (!pkg) {
-    return {
-      title: "ພົບຂໍ້ຜິດພາດ | ໂຮງໝໍ ຟອງສະຫວັນ",
-    };
-  }
-
-  const pageUrl = `${SITE_URL}/packages/${pkg.id}`;
-  const imageUrl = `${SITE_URL}${pkg.image}`;
-
-  return {
-    title: `${pkg.title} | ແພັກເກັດ ແລະ ໂປຣໂມຊັ່ນ | ${SITE_NAME}`,
-    description: pkg.description,
-    openGraph: {
-      title: pkg.title,
-      description: `${pkg.description} | ລາຄາພິເສດ ${pkg.price} LAK`,
-      url: pageUrl,
-      siteName: SITE_NAME,
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: pkg.title,
-        },
-      ],
-      type: "website",
-      locale: "lo_LA",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: pkg.title,
-      description: `${pkg.description} | ລາຄາພິເສດ ${pkg.price} LAK`,
-      images: [imageUrl],
-    },
-  };
 }
 
 // Discount

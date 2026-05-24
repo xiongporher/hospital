@@ -1,11 +1,9 @@
 import { articles } from "@/data/articles";
-import { SITE_URL, SITE_NAME } from "@/constants/site";
 import Navbar from "@/components/layout/Navbar";
 import SocialShare from "@/components/shared/SocialShare";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
 import { Calendar, ArrowLeft } from "lucide-react";
 
 interface PageProps {
@@ -16,48 +14,6 @@ export async function generateStaticParams() {
   return articles.map((article) => ({
     id: article.id.toString(),
   }));
-}
-
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const { id } = await params;
-  const article = articles.find((a) => a.id === parseInt(id));
-  if (!article) {
-    return {
-      title: "ພົບຂໍ້ຜິດພາດ | ໂຮງໝໍ ຟອງສະຫວັນ",
-    };
-  }
-
-  const pageUrl = `${SITE_URL}/articles/${article.id}`;
-  const imageUrl = `${SITE_URL}${article.image}`;
-
-  return {
-    title: `${article.title} | ບົດຄວາມທາງການແພດ | Phongsavanh International Hospital`,
-    description: article.description,
-    openGraph: {
-      title: article.title,
-      description: article.description,
-      url: pageUrl,
-      siteName: SITE_NAME,
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: article.title,
-        },
-      ],
-      type: "article",
-      locale: "lo_LA",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: article.title,
-      description: article.description,
-      images: [imageUrl],
-    },
-  };
 }
 
 export default async function ArticleDetailPage({ params }: PageProps) {
