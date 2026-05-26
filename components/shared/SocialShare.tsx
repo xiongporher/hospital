@@ -34,6 +34,7 @@ export default function SocialShare({ title, description }: SocialShareProps) {
     }
   };
 
+  // For WhatsApp and LINE, create a formatted message
   const textParts: string[] = [];
   if (title) textParts.push(title);
   if (description) textParts.push(description);
@@ -43,14 +44,17 @@ export default function SocialShare({ title, description }: SocialShareProps) {
     <div className="flex flex-wrap items-center gap-3 py-4 my-6">
       <span className="text-sm font-semibold text-slate-500 mr-2">ແຊຣ໌</span>
 
+      {/* Facebook - Uses Open Graph meta tags from the page */}
       <FacebookShareButton
         url={shareUrl}
+        hashtag="#PhongsavanhHospital"
         className="flex h-10 w-10 items-center justify-center rounded-full! bg-slate-100! text-white hover:bg-slate-200! hover:scale-105 active:scale-95 transition-all duration-200 shadow-sm"
         aria-label="Share on Facebook"
       >
         <FaFacebookF className="w-4 h-4 text-blue-600" />
       </FacebookShareButton>
 
+      {/* WhatsApp - Uses page meta tags + custom message */}
       <WhatsappShareButton
         url={shareUrl}
         title={shareMessage}
@@ -61,6 +65,7 @@ export default function SocialShare({ title, description }: SocialShareProps) {
         <FaWhatsapp className="w-5 h-5 text-green-500" />
       </WhatsappShareButton>
 
+      {/* LINE - Uses custom message */}
       <LineShareButton
         url={shareUrl}
         title={shareMessage}

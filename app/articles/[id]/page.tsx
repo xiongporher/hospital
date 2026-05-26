@@ -1,4 +1,5 @@
 import { articles } from "@/data/articles";
+import { generateArticleMetadata } from "@/lib/metadata";
 import Navbar from "@/components/layout/Navbar";
 import SocialShare from "@/components/shared/SocialShare";
 import Image from "next/image";
@@ -14,6 +15,24 @@ export async function generateStaticParams() {
   return articles.map((article) => ({
     id: article.id.toString(),
   }));
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
+  const article = articles.find((a) => a.id === parseInt(id));
+
+  if (!article) {
+    return {
+      title: "ບົດຄວາມບໍ່ພົບ",
+    };
+  }
+
+  return generateArticleMetadata({
+    title: article.title,
+    description: article.description,
+    image: article.image,
+    id: id,
+  });
 }
 
 export default async function ArticleDetailPage({ params }: PageProps) {

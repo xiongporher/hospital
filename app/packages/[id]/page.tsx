@@ -1,4 +1,5 @@
 import { packages } from "@/data/packages";
+import { generatePackageMetadata } from "@/lib/metadata";
 import Navbar from "@/components/layout/Navbar";
 import SocialShare from "@/components/shared/SocialShare";
 import Image from "next/image";
@@ -14,6 +15,24 @@ export async function generateStaticParams() {
   return packages.map((pkg) => ({
     id: pkg.id.toString(),
   }));
+}
+
+export async function generateMetadata({ params }: PageProps) {
+  const { id } = await params;
+  const pkg = packages.find((p) => p.id === parseInt(id));
+
+  if (!pkg) {
+    return {
+      title: "ແພັກເກັດບໍ່ພົບ",
+    };
+  }
+
+  return generatePackageMetadata({
+    title: pkg.title,
+    description: pkg.description,
+    image: pkg.image,
+    id: id,
+  });
 }
 
 // Discount
