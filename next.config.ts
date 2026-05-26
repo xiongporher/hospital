@@ -1,8 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  allowedDevOrigins: ["social-lizards-report.loca.lt"],
+  output: "export",
 };
 
 export default nextConfig;
