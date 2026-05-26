@@ -7,14 +7,14 @@ export default function ArticlesSection() {
   const homeArticles = articles.slice(0, 4);
   return (
     <section className="max-w-360 mx-auto px-4 lg:px-6 py-10">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+      <div className="flex items-center justify-between gap-4 mb-8">
         <div className="flex items-center gap-3">
           <div
             className="w-0 h-0 border-l-[20px] border-l-transparent border-b-[20px] border-b-gold/60"
             aria-hidden="true"
           />
 
-          <h2 className="text-2xl sm:text-3xl font-bold text-primary leading-tight">
+          <h2 className="text-xl md:text-3xl font-bold text-primary leading-tight">
             ບົດຄວາມທາງການແພດ
           </h2>
         </div>

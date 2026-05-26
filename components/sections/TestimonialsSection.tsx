@@ -34,7 +34,7 @@ export default function TestimonialsSection() {
               aria-hidden="true"
             />
 
-            <h2 className="text-2xl sm:text-3xl font-bold text-primary leading-tight">
+            <h2 className="text-xl md:text-3xl font-bold text-primary leading-tight">
               ຄວາມປະທັບໃຈຜູ້ຮັບບໍລິການ
             </h2>
           </div>
