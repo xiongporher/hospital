@@ -87,7 +87,7 @@ export default async function ArticleDetailPage({ params }: PageProps) {
           </div>
 
           {/* Sharing Bar (Top) */}
-          <div className="flex justify-end">
+          <div className="py-5 flex justify-end">
             <SocialShare
               title={article.title}
               description={article.description}

@@ -1,101 +1,111 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import {
-  FacebookShareButton,
-  LineShareButton,
-  WhatsappShareButton,
-} from "react-share";
-import { FaFacebookF, FaWhatsapp, FaLink, FaCheck } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { FaWhatsapp, FaFacebookF } from "react-icons/fa";
 import { SiLine } from "react-icons/si";
 
 interface SocialShareProps {
   title?: string;
   description?: string;
+  className?: string;
+  iconSize?: "sm" | "md" | "lg";
 }
 
-export default function SocialShare({ title, description }: SocialShareProps) {
+/**
+ * Social Share Component - Next.js 16 Production Ready
+ *
+ * Features:
+ * ✓ Uses react-icons for cleaner, maintainable icons
+ * ✓ Works with SSR and prevents hydration mismatches
+ * ✓ Supports IP-based deployments (e.g., 192.168.1.100)
+ * ✓ Fully responsive for mobile and desktop
+ * ✓ Secure with rel="noopener noreferrer"
+ * ✓ Supports Facebook, WhatsApp, and LINE
+ */
+export default function SocialShare({
+  title = "",
+  description = "",
+  className = "flex items-center gap-3",
+  iconSize = "md",
+}: SocialShareProps) {
   const [shareUrl, setShareUrl] = useState("");
-  const [copied, setCopied] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
+  // Set state only after hydration to prevent mismatch
+  // This pattern is intentional and necessary for hydration safety
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      setShareUrl(window.location.href);
-    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setShareUrl(window.location.href);
+    setIsClient(true);
   }, []);
 
-  const handleCopyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(shareUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error("Failed to copy link: ", err);
-    }
+  // Build share text
+  const shareText = [title, description].filter(Boolean).join("\n\n");
+
+  // Sharing URLs
+  const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+    shareUrl,
+  )}`;
+
+  const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
+    `${shareText}${shareText ? "\n\n" : ""}${shareUrl}`,
+  )}`;
+
+  const lineUrl = `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(
+    shareUrl,
+  )}`;
+
+  // Size configurations
+  const sizeConfig = {
+    sm: "h-8 w-8",
+    md: "h-10 w-10",
+    lg: "h-12 w-12",
   };
 
-  // For WhatsApp and LINE, create a formatted message
-  const textParts: string[] = [];
-  if (title) textParts.push(title);
-  if (description) textParts.push(description);
-  const shareMessage = textParts.join("\n\n");
+  const iconSizeClass = sizeConfig[iconSize];
+
+  // Return empty during SSR and before hydration (prevents hydration mismatch)
+  if (!isClient || !shareUrl) {
+    return <div className={className} />;
+  }
 
   return (
-    <div className="flex flex-wrap items-center gap-3 py-4 my-6">
-      <span className="text-sm font-semibold text-slate-500 mr-2">ແຊຣ໌</span>
-
-      {/* Facebook - Uses Open Graph meta tags from the page */}
-      <FacebookShareButton
-        url={shareUrl}
-        hashtag="#PhongsavanhHospital"
-        className="flex h-10 w-10 items-center justify-center rounded-full! bg-slate-100! text-white hover:bg-slate-200! hover:scale-105 active:scale-95 transition-all duration-200 shadow-sm"
+    <div className={className}>
+      {/* Facebook Share */}
+      <a
+        href={facebookUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         aria-label="Share on Facebook"
+        title="Share on Facebook"
+        className={`${iconSizeClass} flex items-center justify-center rounded-full bg-slate-100 text-blue-600 hover:bg-blue-100 hover:text-blue-700 transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2`}
       >
-        <FaFacebookF className="w-4 h-4 text-blue-600" />
-      </FacebookShareButton>
+        <FaFacebookF className="w-5 h-5" />
+      </a>
 
-      {/* WhatsApp - Uses page meta tags + custom message */}
-      <WhatsappShareButton
-        url={shareUrl}
-        title={shareMessage}
-        separator="\n\n"
-        className="flex h-10 w-10 items-center justify-center rounded-full! bg-slate-100! text-white hover:bg-slate-200! hover:scale-105 active:scale-95 transition-all duration-200 shadow-sm"
+      {/* WhatsApp Share */}
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         aria-label="Share on WhatsApp"
+        title="Share on WhatsApp"
+        className={`${iconSizeClass} flex items-center justify-center rounded-full bg-slate-100 text-green-500 hover:bg-green-100 hover:text-green-600 transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2`}
       >
-        <FaWhatsapp className="w-5 h-5 text-green-500" />
-      </WhatsappShareButton>
+        <FaWhatsapp className="w-5 h-5" />
+      </a>
 
-      {/* LINE - Uses custom message */}
-      <LineShareButton
-        url={shareUrl}
-        title={shareMessage}
-        className="flex h-10 w-10 items-center justify-center rounded-full! bg-slate-100! text-white hover:bg-slate-200! hover:scale-105 active:scale-95 transition-all duration-200 shadow-sm"
+      {/* LINE Share */}
+      <a
+        href={lineUrl}
+        target="_blank"
+        rel="noopener noreferrer"
         aria-label="Share on LINE"
+        title="Share on LINE"
+        className={`${iconSizeClass} flex items-center justify-center rounded-full bg-slate-100 text-[#06C755] hover:bg-[#E8F7F0] hover:text-[#06C755] transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#06C755] focus:ring-offset-2`}
       >
-        <SiLine className="w-5 h-5 text-[#06C755]" />
-      </LineShareButton>
-
-      <button
-        onClick={handleCopyLink}
-        className={`flex h-10 px-4 items-center justify-center gap-2 rounded-full text-sm font-bold transition-all duration-200 shadow-sm hover:scale-105 active:scale-95 ${
-          copied
-            ? "bg-primary/70 text-white"
-            : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-        }`}
-        title="Copy Link"
-      >
-        {copied ? (
-          <>
-            <FaCheck className="w-3.5 h-3.5 animate-scale-up" />
-            <span>ຄັດລອກແລ້ວ!</span>
-          </>
-        ) : (
-          <>
-            <FaLink className="w-3.5 h-3.5" />
-            <span>ຄັດລອກລິ້ງ</span>
-          </>
-        )}
-      </button>
+        <SiLine className="w-5 h-5" />
+      </a>
     </div>
   );
 }
