@@ -45,8 +45,6 @@ export default async function ArticleDetailPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen text-slate-950 antialiased flex flex-col">
-      <Navbar />
-
       <main className="flex-grow py-8 sm:py-12 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           {/* Back Button */}
