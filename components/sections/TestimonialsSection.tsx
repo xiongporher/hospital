@@ -1,14 +1,14 @@
 // components/sections/TestimonialsSection.tsx
 
 import Image from "next/image";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 const testimonials = [
   {
     id: 1,
     image: "/images/testimonials/testimonial1.jpg",
-    title: "ຄວາມປະທັບໃຈໃນການຫຼຸດນ້ຳໜັກ ກັບອາຫານທີ່ດີ ແລະ ປັບພຶດຕິກຳ",
+    title: "ຄວາມປະທັບໃຈໃນການຫຼຸດນ້ຳໜັກ ແລະ ປັບພຶດຕິກຳ",
   },
   {
     id: 2,
@@ -52,7 +52,7 @@ export default function TestimonialsSection() {
           {testimonials.map((item) => (
             <div
               key={item.id}
-              className="overflow-hidden bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+              className="overflow-hidden bg-white"
             >
               {/* Image */}
               <div className="relative aspect-[4/3] w-full overflow-hidden">

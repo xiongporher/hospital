@@ -91,7 +91,7 @@ export default function NewsUpdateSection() {
             </div>
 
             {/* Content */}
-            <div className="p-5">
+            {/* <div className="p-5">
               <span className="inline-block rounded bg-gold/10 px-3 py-1 text-xs font-medium text-gold">
                 {featuredNews.category}
               </span>
@@ -109,7 +109,7 @@ export default function NewsUpdateSection() {
                   ລາຍລະອຽດ
                 </Link>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Side */}

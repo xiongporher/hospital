@@ -46,7 +46,7 @@ const HeaderContent = () => (
 
 export default function FacilitiesSection() {
   return (
-    <section className="bg-[#e2efec] py-10 w-full">
+    <section className="bg-[#bcdcd5] py-10 w-full">
       <div className="max-w-360 mx-auto px-4 lg:px-6">
         {/* 1. Header ສໍາລັບໜ້າຈໍນ້ອຍ (Mobile/Tablet) - ຈະສະແດງເມື່ອຕ່ຳກວ່າ lg */}
         <div className="block lg:hidden">

@@ -25,7 +25,7 @@ export default function Navbar() {
       <header className="sticky top-0 z-50 border-b-3 border-gold bg-white">
         <div className="h-5 w-full bg-linear-to-b from-gold/50 to-transparent" />
 
-        <div className="mx-auto flex max-w-400 items-center justify-between px-6 py-4 lg:px-10">
+        <div className="mx-auto max-w-400 flex items-center justify-between px-6 py-4 lg:px-10">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3">
             <Image

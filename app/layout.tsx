@@ -1,10 +1,30 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Geist, Geist_Mono, Noto_Sans_Lao } from "next/font/google";
+// import localFont from "next/font/local";
 import "./globals.css";
+import { Footer } from "@/components/layout/Footer";
+import { ContactBar } from "@/components/sections/ContactBar";
 
-const myFont = localFont({
-  src: "../fonts/Phetsarath_OT.ttf",
-  variable: "--Phetsarath_OT",
+// const myFont = localFont({
+//   src: "../fonts/Phetsarath_OT.ttf",
+//   variable: "--Phetsarath_OT",
+// });
+
+const notoSansLao = Noto_Sans_Lao({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["lao"],
+  display: "swap",
+  variable: "--font-noto-sans-lao",
+});
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
 });
 
 const siteUrl =
@@ -45,8 +65,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={myFont.className}>
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html
+      lang="en"
+      className={`${notoSansLao.className} ${geistSans.variable} ${geistMono.variable} antialiased`}
+    >
+      <body className="min-h-full flex flex-col">
+        {children}
+        <ContactBar />
+        <Footer />
+      </body>
     </html>
   );
 }
