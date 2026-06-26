@@ -22,8 +22,6 @@ function calculateDiscount(priceStr: string, oldPriceStr: string) {
 export default function PackagesPage() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-950 antialiased flex flex-col">
-      <Navbar />
-
       {/* Hero Section */}
       <div className="relative py-16 bg-primary text-white overflow-hidden">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_right,_var(--color-gold-light),_transparent)] pointer-events-none" />

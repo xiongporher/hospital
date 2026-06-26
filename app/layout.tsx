@@ -4,6 +4,7 @@ import { Geist, Geist_Mono, Noto_Sans_Lao } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/layout/Footer";
 import { ContactBar } from "@/components/sections/ContactBar";
+import Navbar from "@/components/layout/Navbar";
 
 // const myFont = localFont({
 //   src: "../fonts/Phetsarath_OT.ttf",
@@ -70,6 +71,7 @@ export default function RootLayout({
       className={`${notoSansLao.className} ${geistSans.variable} ${geistMono.variable} antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <Navbar />
         {children}
         <ContactBar />
         <Footer />

@@ -53,8 +53,8 @@ export function Footer() {
             <Image
               src="/images/logo-jci.png"
               alt="JCI Logo"
-              width={150}
-              height={150}
+              width={160}
+              height={160}
               className="object-contain"
             />
 
